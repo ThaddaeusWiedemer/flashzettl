@@ -13,26 +13,29 @@ Python script to create anki flashcards from markdown notes.
     
 Cards anywhere in the text can be started with `#anki`. The next two paragraphs will be interpreted as front and back of the card:
 
->#anki
->front
->can span mutliple lines
->- and may contain lists
->- or even images
->
->back
->also spans multiple lines
->needs to end with an empty line or the end of the file
+```
+#anki
+front
+can span mutliple lines
+- and may contain lists
+- or even images
+
+back
+also spans multiple lines
+needs to end with an empty line or the end of the file
+```
 
 After a card has been exported `#anki` is replaced with `#_anki`
 
 The deck can be specified with `#anki=deck` and may be of the form `deck::subdeck::subdeck` or `deck:subdeck:subdeck` to avoid the highlight that some markdown editors display for double colons. The deck can also be specified for all cards in a file by adding the keyword `_anki=deck` in the YAML-frontmatter like so:
 
->---
->title: ...
->keywords:
->  - _anki=deck
->---
-
+```
+---
+title: ...
+keywords:
+  - _anki=deck
+---
+```
 In this case, the per-card specified deck may still override the file-wide deck.
 
 # known issues

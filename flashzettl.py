@@ -20,7 +20,7 @@ class Flashzettl:
 
     # flashcard field regex
     #TODO allow for list of decks -> how to treat default deck?
-    regex = r'(?<![0-9a-zA-Z`>\S])#anki[=]?(.*) *\n([\s\S]+?(?=\n *\n))\n *\n([\s\S]+?(?=\n *\n|\Z))'
+    regex = r'(?<![0-9a-zA-Z`>\S])(?<!`\n)#anki[=]?(.*) *\n([\s\S]+?(?=\n *\n))\n *\n([\s\S]+?(?=\n *\n|\Z))'
 
     # known decks as {'name': {'deck': deck, 'id': id}}
     decks = {}
@@ -150,7 +150,7 @@ class Flashzettl:
                 # TODO check for #anki in header for atomic flashcard
 
                 # check for file-wide deck-name
-                result = re.search(r'(?<=^  - _anki=).*', data)
+                result = re.search(r'(?<=- _anki=).*(?=\n)(?!\n---\n```)', data)
                 if result:
                     file_deck_name = cls.polish_deck_name(result.group(0))
                 else:
