@@ -20,7 +20,7 @@ class Flashzettl:
 
     # flashcard field regex
     #TODO allow for list of decks -> how to treat default deck?
-    regex = r'#anki[=]?(.*) *\n([\s\S]+?(?=\n *\n))\n *\n([\s\S]+?(?=\n *\n|\Z))'
+    regex = r'(?<![0-9a-zA-Z`>\S])#anki[=]?(.*) *\n([\s\S]+?(?=\n *\n))\n *\n([\s\S]+?(?=\n *\n|\Z))'
 
     # known decks as {'name': {'deck': deck, 'id': id}}
     decks = {}
@@ -52,7 +52,7 @@ class Flashzettl:
             print('added new deck(s) to {}!'.format(path))
 
     # simple card model with front and back. also needs a unique ID
-    # TODO inlclude bm, mathtools, colorx latex packages, as soon as new version is released
+    # TODO include bm, mathtools, colorx latex packages, as soon as new version is released
     basic_model = genanki.Model(
         1440894177,
         'Basic',
@@ -143,14 +143,14 @@ class Flashzettl:
     def extract_card_info(cls, directory, args):
         '''finds all card info in .md files of directory'''
         cards = {}
-        # recursivley loop over all .md files in directory + subdirectories
-        for f in glob.glob(f"{directory}**/*.md", recursive=True):
+        # recursively loop over all .md files in directory + subdirectories
+        for f in glob.glob(f"{directory}**/**/*.md", recursive=True):
             with open(f, 'r+', encoding='utf-8') as _file:
                 data = _file.read()
                 # TODO check for #anki in header for atomic flashcard
 
                 # check for file-wide deck-name
-                result = re.search(r'(?<=- _anki=).*', data)
+                result = re.search(r'(?<=^  - _anki=).*', data)
                 if result:
                     file_deck_name = cls.polish_deck_name(result.group(0))
                 else:
