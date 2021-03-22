@@ -102,7 +102,7 @@ class Flashzettl:
         return card
 
     @classmethod
-    def polish(cls, text):
+    def polish(cls, text, directory):
         '''converts problematic markdown items'''
         # remove id links
         text = re.sub(r'\[\[\d{14}\]\]', '', text)
@@ -114,7 +114,7 @@ class Flashzettl:
         media_files = []
         mfs = re.findall(r'\!\[.+\]\((.+.[png|PNG|jpg|JPG|jpeg|JPEG|bmp|BMP])\)', text)
         for mf in mfs:
-            media_files.append('..\\' + mf)
+            media_files.append(os.path.join(directory, mf))
 
         # add additional line breaks in front of lists
         # TODO expand to lists that don't start with 1.
@@ -185,8 +185,8 @@ class Flashzettl:
                         print(answer_raw)
 
                     # polish question and answer and extract media-file references
-                    question, question_mfs = cls.polish(question_raw)
-                    answer, answer_mfs = cls.polish(answer_raw)
+                    question, question_mfs = cls.polish(question_raw, directory)
+                    answer, answer_mfs = cls.polish(answer_raw, directory)
 
                     if args.debug:
                         print('--------------------')
