@@ -57,3 +57,8 @@ This is the regex that matches cards:
 - doesn't include the consecutive line breaks in the capture groups
 - `([\s\S]+?(?=\n *\n|\z))` does the same but may also be terminated by the end-of-file character `\z`
 
+___
+
+- [[20210210112047]] noteexplorer
+- [[20201216111655]] projects
+- [[20210202143705]] Zettlr
