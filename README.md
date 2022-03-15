@@ -38,6 +38,13 @@ keywords:
 ```
 In this case, the per-card specified deck may still override the file-wide deck.
 
+# usage
+The script can be saved anywhere and is can be started from the command line with
+
+```
+python flashzettl.py -d <zettelkasten directory> -o <output directory>
+```
+
 # known issues
 - so far Markdown tables, mermaid diagrams, and codeblocks are not fully supported
 - a card cannot be added to several decks in one go
